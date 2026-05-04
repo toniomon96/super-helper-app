@@ -472,6 +472,97 @@
       }
     }
 
+    /* ── Category button colors ── */
+    .choice-button[data-category="bored"]      { background: rgba(255,140,40,0.12); border-color: rgba(255,140,40,0.45); color: #7a3d00; }
+    .choice-button[data-category="tired"]      { background: rgba(140,100,255,0.12); border-color: rgba(140,100,255,0.45); color: #3d1a80; }
+    .choice-button[data-category="challenge"]  { background: rgba(255,200,0,0.16); border-color: rgba(220,170,0,0.5); color: #5a4000; }
+    .choice-button[data-category="brainBreak"] { background: rgba(0,200,200,0.12); border-color: rgba(0,170,170,0.45); color: #005050; }
+    .choice-button[data-category="joke"]       { background: rgba(255,80,150,0.12); border-color: rgba(255,80,150,0.45); color: #7a0038; }
+    .choice-button[data-category="kindness"]   { background: rgba(50,200,100,0.12); border-color: rgba(50,200,100,0.45); color: #0a5030; }
+
+    .choice-button[data-category="bored"]:hover,    .choice-button[data-category="bored"]:focus-visible    { background:rgba(255,140,40,0.25); border-color:rgba(255,140,40,0.7); color:#7a3d00; box-shadow:0 10px 22px rgba(255,140,40,0.2); }
+    .choice-button[data-category="tired"]:hover,    .choice-button[data-category="tired"]:focus-visible    { background:rgba(140,100,255,0.25); border-color:rgba(140,100,255,0.7); color:#3d1a80; box-shadow:0 10px 22px rgba(140,100,255,0.2); }
+    .choice-button[data-category="challenge"]:hover,.choice-button[data-category="challenge"]:focus-visible { background:rgba(255,200,0,0.3); border-color:rgba(220,170,0,0.8); color:#5a4000; box-shadow:0 10px 22px rgba(255,200,0,0.2); }
+    .choice-button[data-category="brainBreak"]:hover,.choice-button[data-category="brainBreak"]:focus-visible { background:rgba(0,200,200,0.25); border-color:rgba(0,170,170,0.7); color:#005050; box-shadow:0 10px 22px rgba(0,200,200,0.2); }
+    .choice-button[data-category="joke"]:hover,     .choice-button[data-category="joke"]:focus-visible     { background:rgba(255,80,150,0.25); border-color:rgba(255,80,150,0.7); color:#7a0038; box-shadow:0 10px 22px rgba(255,80,150,0.2); }
+    .choice-button[data-category="kindness"]:hover, .choice-button[data-category="kindness"]:focus-visible  { background:rgba(50,200,100,0.25); border-color:rgba(50,200,100,0.7); color:#0a5030; box-shadow:0 10px 22px rgba(50,200,100,0.2); }
+
+    .choice-button[data-category="bored"] .icon      { background: rgba(255,140,40,0.32); }
+    .choice-button[data-category="tired"] .icon      { background: rgba(140,100,255,0.32); }
+    .choice-button[data-category="challenge"] .icon  { background: rgba(255,200,0,0.38); }
+    .choice-button[data-category="brainBreak"] .icon { background: rgba(0,200,200,0.32); }
+    .choice-button[data-category="joke"] .icon       { background: rgba(255,80,150,0.32); }
+    .choice-button[data-category="kindness"] .icon   { background: rgba(50,200,100,0.32); }
+
+    /* ── Tried badge ── */
+    .choice-button { position: relative; }
+    .tried-badge {
+      position: absolute;
+      top: -8px; right: -8px;
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      background: var(--good);
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 0.15s, transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      pointer-events: none;
+      border: 2px solid white;
+    }
+    .choice-button.tried .tried-badge { opacity: 1; transform: scale(1); }
+
+    /* ── Pick prompt ── */
+    .pick-prompt {
+      text-align: center;
+      font-weight: 900;
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin: 14px 0 4px;
+      animation: promptBounce 1.4s ease-in-out infinite;
+    }
+    @keyframes promptBounce {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(7px); }
+    }
+
+    /* ── Tried count ── */
+    .tried-count {
+      text-align: center;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin: 10px 0 0;
+      min-height: 1.4em;
+      transition: color 0.3s;
+    }
+    .tried-count.complete { color: var(--good); }
+
+    /* ── Idle pulse on output ── */
+    @keyframes idlePulse {
+      0%, 100% { border-color: rgba(33,102,243,0.18); }
+      50%      { border-color: rgba(33,102,243,0.58); }
+    }
+    .mission-output.idle { animation: idlePulse 2s ease-in-out infinite; }
+
+    /* ── Confetti ── */
+    .confetti-dot {
+      position: fixed;
+      top: -12px;
+      z-index: 9999;
+      pointer-events: none;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+      80%  { opacity: 1; }
+      100% { transform: translateY(105vh) rotate(800deg) scale(0.5); opacity: 0; }
+    }
+
     @media print {
       body {
         background: white;
@@ -525,14 +616,18 @@
         <h2 id="choices-title">What do you need help with?</h2>
         <p>Ask the class which button to press. Let them vote, then click one.</p>
 
+        <p class="pick-prompt" id="pickPrompt">👇 Pick one and see what happens!</p>
+
         <div class="choice-grid" id="choiceGrid">
-          <button type="button" class="choice-button" data-category="bored"><span class="icon">🎨</span><span>I’m bored</span></button>
-          <button type="button" class="choice-button" data-category="tired"><span class="icon">🔋</span><span>I’m tired</span></button>
-          <button type="button" class="choice-button" data-category="challenge"><span class="icon">🏆</span><span>I want a challenge</span></button>
-          <button type="button" class="choice-button" data-category="brainBreak"><span class="icon">🧠</span><span>I need a brain break</span></button>
-          <button type="button" class="choice-button" data-category="joke"><span class="icon">😂</span><span>Tell me a joke</span></button>
-          <button type="button" class="choice-button" data-category="kindness"><span class="icon">🤝</span><span>Kindness mission</span></button>
+          <button type="button" class="choice-button" data-category="bored"><span class="icon">🎨</span><span>I’m bored</span><span class="tried-badge">✓</span></button>
+          <button type="button" class="choice-button" data-category="tired"><span class="icon">🔋</span><span>I’m tired</span><span class="tried-badge">✓</span></button>
+          <button type="button" class="choice-button" data-category="challenge"><span class="icon">🏆</span><span>I want a challenge</span><span class="tried-badge">✓</span></button>
+          <button type="button" class="choice-button" data-category="brainBreak"><span class="icon">🧠</span><span>I need a brain break</span><span class="tried-badge">✓</span></button>
+          <button type="button" class="choice-button" data-category="joke"><span class="icon">😂</span><span>Tell me a joke</span><span class="tried-badge">✓</span></button>
+          <button type="button" class="choice-button" data-category="kindness"><span class="icon">🤝</span><span>Kindness mission</span><span class="tried-badge">✓</span></button>
         </div>
+
+        <p class="tried-count" id="triedCount"></p>
 
         <div class="concept-row" aria-label="Input code output explanation">
           <div class="concept"><strong>Input</strong><p>What we tell the app.</p></div>
@@ -678,8 +773,47 @@
     const featureInput = document.getElementById("featureInput");
     const addFeatureButton = document.getElementById("addFeatureButton");
     const newFeatureArea = document.getElementById("newFeatureArea");
+    const quickCard = document.querySelector(".quick-card");
+    const pickPrompt = document.getElementById("pickPrompt");
+    const triedCountEl = document.getElementById("triedCount");
 
     let lastCategory = null;
+
+    missionOutput.classList.add("idle");
+
+    function updateTriedCount() {
+      const buttons = document.querySelectorAll(".choice-grid [data-category]");
+      const tried = document.querySelectorAll(".choice-grid [data-category].tried").length;
+      if (tried === 0) {
+        triedCountEl.textContent = "";
+        triedCountEl.classList.remove("complete");
+      } else if (tried === buttons.length) {
+        triedCountEl.textContent = "🌟 All 6 tried — amazing class!";
+        triedCountEl.classList.add("complete");
+      } else {
+        triedCountEl.textContent = `${tried} of ${buttons.length} tried`;
+        triedCountEl.classList.remove("complete");
+      }
+    }
+
+    function launchConfetti() {
+      const colors = ["#ffd166", "#2166f3", "#25a56a", "#d94848", "#ff8c28", "#ff5096", "#8c64ff"];
+      for (let i = 0; i < 70; i++) {
+        const dot = document.createElement("div");
+        dot.className = "confetti-dot";
+        dot.style.cssText = [
+          `left:${10 + Math.random() * 80}%`,
+          `background:${colors[Math.floor(Math.random() * colors.length)]}`,
+          `animation-delay:${(Math.random() * 0.5).toFixed(2)}s`,
+          `animation-duration:${(0.9 + Math.random() * 0.7).toFixed(2)}s`,
+          `width:${5 + Math.random() * 9}px`,
+          `height:${5 + Math.random() * 9}px`,
+          `border-radius:${Math.random() > 0.4 ? "50%" : "2px"}`,
+        ].join(";");
+        document.body.appendChild(dot);
+        dot.addEventListener("animationend", () => dot.remove());
+      }
+    }
 
     function randomItem(items) {
       return items[Math.floor(Math.random() * items.length)];
@@ -717,7 +851,13 @@
     }
 
     document.querySelectorAll("[data-category]").forEach((button) => {
-      button.addEventListener("click", () => runCategory(button.dataset.category));
+      button.addEventListener("click", () => {
+        runCategory(button.dataset.category);
+        button.classList.add("tried");
+        updateTriedCount();
+        pickPrompt.classList.add("hidden");
+        missionOutput.classList.remove("idle");
+      });
     });
 
     tryAgainButton.addEventListener("click", () => {
@@ -752,6 +892,7 @@
       missionOutput.style.removeProperty("--cat-color");
       setOutput("Mystery feature: Ask the class what button we should add next.", "This is how app ideas start: someone notices a need or has a fun idea.", "good");
       codeText.textContent = `newFeature = askTheClass();\nbuildButton(newFeature);\ntestItTogether();`;
+      setTimeout(() => featureBuilderSection.scrollIntoView({ behavior: "smooth", block: "nearest" }), 400);
     });
 
     function cleanFeatureName(value) {
@@ -795,6 +936,7 @@
       setEmoji("✨⚡");
       missionOutput.style.removeProperty("--cat-color");
       setOutput(`Feature added: ${titleCase(feature)}`, "Now test it by pressing the new button.", "good");
+      launchConfetti();
     });
 
     const presentationModeButton = document.getElementById("presentationModeButton");
@@ -806,6 +948,7 @@
       presentationMode = !presentationMode;
       featureBuilderSection.classList.toggle("hidden", presentationMode);
       footerNotes.classList.toggle("hidden", presentationMode);
+      quickCard.classList.toggle("hidden", presentationMode);
       presentationModeButton.textContent = presentationMode ? "Exit Presentation Mode" : "Presentation Mode";
     });
   </script>
