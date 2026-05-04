@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Super Helper App | Career Day Demo</title>
+  <style>
+    :root {
+      --bg: #f7f4ee;
+      --card: #ffffff;
+      --ink: #17212b;
+      --muted: #5b6570;
+      --line: #d9d2c6;
+      --primary: #2166f3;
+      --primary-dark: #174fc4;
+      --accent: #ffd166;
+      --good: #25a56a;
+      --bug: #d94848;
+      --shadow: 0 18px 50px rgba(23, 33, 43, 0.14);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(255, 209, 102, 0.34), transparent 28%),
+        radial-gradient(circle at 85% 10%, rgba(33, 102, 243, 0.18), transparent 25%),
+        var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 48px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+
+    .hero,
+    .quick-card,
+    .panel,
+    .mission-card,
+    .feature-builder {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(217, 210, 198, 0.85);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+
+    .hero {
+      padding: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      bottom: -80px;
+      width: 220px;
+      height: 220px;
+      border-radius: 999px;
+      background: rgba(255, 209, 102, 0.45);
+      z-index: 0;
+    }
+
+    .hero > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(33, 102, 243, 0.10);
+      color: var(--primary-dark);
+      border: 1px solid rgba(33, 102, 243, 0.22);
+      font-weight: 800;
+      border-radius: 999px;
+      padding: 7px 12px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      line-height: 0.95;
+      margin: 0 0 14px;
+      letter-spacing: -0.06em;
+    }
+
+    h2 {
+      font-size: clamp(1.45rem, 3vw, 2.35rem);
+      margin: 0 0 10px;
+      letter-spacing: -0.035em;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      margin: 0 0 8px;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .lead {
+      font-size: clamp(1.08rem, 2.2vw, 1.38rem);
+      max-width: 700px;
+    }
+
+    .quick-card {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .safe-note {
+      border-left: 5px solid var(--good);
+      background: rgba(37, 165, 106, 0.08);
+      padding: 13px 14px;
+      border-radius: 14px;
+      color: #215f43;
+      font-weight: 700;
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel,
+    .mission-card,
+    .feature-builder {
+      padding: 22px;
+    }
+
+    .choice-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      border-radius: 16px;
+      padding: 15px 16px;
+      background: var(--primary);
+      color: white;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 9px 20px rgba(33, 102, 243, 0.22);
+      transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+      min-height: 54px;
+    }
+
+    button:hover,
+    button:focus-visible {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px rgba(33, 102, 243, 0.28);
+      outline: 3px solid rgba(33, 102, 243, 0.22);
+      outline-offset: 2px;
+    }
+
+    .choice-button {
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      color: var(--ink);
+      border: 2px solid var(--line);
+      box-shadow: none;
+    }
+
+    .choice-button:hover,
+    .choice-button:focus-visible {
+      background: #fbfcff;
+      border-color: rgba(33, 102, 243, 0.55);
+      color: var(--primary-dark);
+      box-shadow: 0 10px 22px rgba(23, 33, 43, 0.08);
+    }
+
+    .choice-button .icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      background: rgba(255, 209, 102, 0.42);
+      font-size: 1.35rem;
+      flex: 0 0 auto;
+    }
+
+    .mission-card {
+      min-height: 360px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .screen-label {
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-weight: 900;
+    }
+
+    .mission-output {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, #ffffff, #f5f7fb);
+      border: 3px dashed rgba(33, 102, 243, 0.25);
+      border-radius: 20px;
+      padding: 26px;
+      text-align: center;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .mission-output.bug {
+      background: rgba(217, 72, 72, 0.08);
+      border-color: rgba(217, 72, 72, 0.45);
+    }
+
+    .mission-output.good {
+      background: var(--cat-color, rgba(37, 165, 106, 0.08));
+      border-color: rgba(37, 165, 106, 0.38);
+    }
+
+    .mission-emoji {
+      font-size: 5rem;
+      line-height: 1;
+      margin-bottom: 14px;
+      display: block;
+      letter-spacing: 0.08em;
+      min-height: 5rem;
+    }
+
+    @keyframes emojiPop {
+      0%   { transform: scale(0.2) rotate(-8deg); opacity: 0; }
+      55%  { transform: scale(1.2) rotate(4deg);  opacity: 1; }
+      100% { transform: scale(1)   rotate(0deg);  opacity: 1; }
+    }
+
+    @keyframes emojiWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      20%      { transform: rotate(-10deg); }
+      40%      { transform: rotate(10deg); }
+      60%      { transform: rotate(-6deg); }
+      80%      { transform: rotate(6deg); }
+    }
+
+    @keyframes emojiPulse {
+      0%, 100% { transform: scale(1); }
+      50%      { transform: scale(1.12); }
+    }
+
+    @keyframes emojiBounce {
+      0%, 100% { transform: translateY(0); }
+      40%      { transform: translateY(-18px); }
+      70%      { transform: translateY(-8px); }
+    }
+
+    .mission-emoji.pop        { animation: emojiPop    0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+    .mission-emoji.pop.wiggle { animation: emojiPop    0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+                                            emojiWiggle 0.6s  0.45s ease-in-out; }
+    .mission-emoji.pop.pulse  { animation: emojiPop    0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+                                            emojiPulse  0.7s  0.45s ease-in-out 3; }
+    .mission-emoji.pop.bounce { animation: emojiPop    0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+                                            emojiBounce 0.6s  0.45s ease-in-out; }
+
+    .mission-text {
+      font-size: clamp(1.55rem, 3.8vw, 2.75rem);
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+      font-weight: 950;
+      color: var(--ink);
+    }
+
+    .mission-subtext {
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 12px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .secondary {
+      background: #edf2ff;
+      color: var(--primary-dark);
+      box-shadow: none;
+    }
+
+    .secondary:hover,
+    .secondary:focus-visible {
+      background: #dfe8ff;
+      color: var(--primary-dark);
+    }
+
+    .bug-button {
+      background: var(--bug);
+      box-shadow: 0 9px 20px rgba(217, 72, 72, 0.18);
+    }
+
+    .bug-button:hover,
+    .bug-button:focus-visible {
+      background: #b83737;
+    }
+
+    .fix-button {
+      background: var(--good);
+      box-shadow: 0 9px 20px rgba(37, 165, 106, 0.18);
+    }
+
+    .fix-button:hover,
+    .fix-button:focus-visible {
+      background: #1f8d5b;
+    }
+
+    .code-panel {
+      margin-top: 14px;
+      padding: 16px;
+      background: #121826;
+      color: #f8fafc;
+      border-radius: 16px;
+      display: none;
+      overflow-x: auto;
+    }
+
+    .code-panel.show {
+      display: block;
+    }
+
+    pre {
+      margin: 0;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .concept-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .concept {
+      background: #fff;
+      border: 2px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .concept strong {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+    }
+
+    .feature-builder {
+      margin-top: 20px;
+    }
+
+    .feature-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 10px;
+      margin-top: 16px;
+      align-items: end;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-weight: 850;
+      color: var(--ink);
+    }
+
+    input {
+      width: 100%;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      padding: 13px 14px;
+      background: white;
+      color: var(--ink);
+      min-height: 52px;
+    }
+
+    input:focus {
+      outline: 3px solid rgba(33, 102, 243, 0.18);
+      border-color: rgba(33, 102, 243, 0.6);
+    }
+
+    .new-feature-area {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tiny-note {
+      font-size: 0.92rem;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .presentation-mode-button {
+      margin-top: 14px;
+      font-size: 0.9rem;
+      padding: 10px 16px;
+      min-height: 0;
+    }
+
+    .footer-notes {
+      margin-top: 22px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(217, 210, 198, 0.85);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 880px) {
+      header,
+      .main-grid,
+      .feature-form {
+        grid-template-columns: 1fr;
+      }
+
+      .choice-grid,
+      .concept-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      .controls,
+      .feature-builder,
+      .footer-notes,
+      .quick-card {
+        display: none;
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      header,
+      .main-grid {
+        display: block;
+      }
+
+      .hero,
+      .panel,
+      .mission-card {
+        box-shadow: none;
+        border: 1px solid #bbb;
+        margin-bottom: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <section class="hero" aria-labelledby="app-title">
+        <div class="badge">Career Day Demo</div>
+        <h1 id="app-title">Super Helper App</h1>
+        <p class="lead">Pick what you need help with. The app takes an input, follows instructions, and gives back an output.</p>
+        <button type="button" class="secondary presentation-mode-button" id="presentationModeButton">Presentation Mode</button>
+      </section>
+
+      <aside class="quick-card" aria-label="Presenter setup notes">
+        <div class="safe-note">Works offline. No student names, photos, or data are saved.</div>
+        <p><strong>Presenter line:</strong> “Apps are not magic. They are ideas plus instructions.”</p>
+      </aside>
+    </header>
+
+    <section class="main-grid">
+      <section class="panel" aria-labelledby="choices-title">
+        <h2 id="choices-title">What do you need help with?</h2>
+        <p>Ask the class which button to press. Let them vote, then click one.</p>
+
+        <div class="choice-grid" id="choiceGrid">
+          <button type="button" class="choice-button" data-category="bored"><span class="icon">🎨</span><span>I’m bored</span></button>
+          <button type="button" class="choice-button" data-category="tired"><span class="icon">🔋</span><span>I’m tired</span></button>
+          <button type="button" class="choice-button" data-category="challenge"><span class="icon">🏆</span><span>I want a challenge</span></button>
+          <button type="button" class="choice-button" data-category="brainBreak"><span class="icon">🧠</span><span>I need a brain break</span></button>
+          <button type="button" class="choice-button" data-category="joke"><span class="icon">😂</span><span>Tell me a joke</span></button>
+          <button type="button" class="choice-button" data-category="kindness"><span class="icon">🤝</span><span>Kindness mission</span></button>
+        </div>
+
+        <div class="concept-row" aria-label="Input code output explanation">
+          <div class="concept"><strong>Input</strong><p>What we tell the app.</p></div>
+          <div class="concept"><strong>Code</strong><p>The app’s instructions.</p></div>
+          <div class="concept"><strong>Output</strong><p>What the app gives back.</p></div>
+        </div>
+      </section>
+
+      <section class="mission-card" aria-labelledby="mission-title">
+        <div>
+          <div class="screen-label">App screen</div>
+          <h2 id="mission-title">Your mission appears here</h2>
+        </div>
+
+        <div class="mission-output" id="missionOutput" aria-live="polite">
+          <div>
+            <div class="mission-emoji" id="missionEmoji">👋</div>
+            <div class="mission-text" id="missionText">Choose a button to start.</div>
+            <p class="mission-subtext" id="missionSubtext">This is the output.</p>
+          </div>
+        </div>
+
+        <div class="controls">
+          <button type="button" class="secondary" id="tryAgainButton">Try again</button>
+          <button type="button" class="secondary" id="codeButton">Show code</button>
+          <button type="button" class="bug-button" id="bugButton">Make a bug</button>
+          <button type="button" class="fix-button hidden" id="fixButton">Fix bug</button>
+          <button type="button" class="secondary" id="mysteryButton">Mystery feature</button>
+        </div>
+
+        <div class="code-panel" id="codePanel" aria-label="Simple code example">
+          <pre id="codeText">if (choice === "bored") {
+  show("Draw a robot with cowboy boots!");
+}</pre>
+        </div>
+      </section>
+    </section>
+
+    <section class="feature-builder" aria-labelledby="builder-title">
+      <h2 id="builder-title">Build a Feature Together</h2>
+      <p>Let the kids suggest a silly feature. Type it in, then add a new button to the app.</p>
+
+      <div class="feature-form">
+        <label>
+          App name
+          <input id="appNameInput" maxlength="40" value="Super Helper App" />
+        </label>
+
+        <label>
+          Feature idea
+          <input id="featureInput" maxlength="40" placeholder="pizza button, dog helper, homework helper" />
+        </label>
+
+        <button type="button" id="addFeatureButton">Add feature</button>
+      </div>
+
+      <div class="new-feature-area" id="newFeatureArea" aria-live="polite"></div>
+      <p class="tiny-note">Tip: keep ideas generic. Do not type student names.</p>
+    </section>
+
+    <section class="footer-notes">
+      <h3>Presenter reminder</h3>
+      <p>Say: “At my job, the apps are bigger, but the idea is the same: someone has a problem, and we build technology to help.”</p>
+    </section>
+  </main>
+
+  <script>
+    const missions = {
+      bored: [
+        { text: "Draw a robot with cowboy boots.",                        emoji: "🤖👢"       },
+        { text: "Invent a new animal and give it a funny name.",          emoji: "🐉🦊"       },
+        { text: "Pretend you are a news reporter for 10 seconds.",        emoji: "🎤📺"       },
+        { text: "Make up a superhero power that helps your teacher.",     emoji: "🦸⚡"       },
+        { text: "Design a snack for astronauts.",                         emoji: "🚀🍕"       },
+      ],
+      tired: [
+        { text: "Take three slow breaths.",                               emoji: "😮‍💨🌬️"    },
+        { text: "Stretch your arms like a starfish.",                     emoji: "⭐🙌"       },
+        { text: "Roll your shoulders three times.",                       emoji: "💪🔄"       },
+        { text: "Pretend you are charging your battery.",                 emoji: "🔋⚡"       },
+        { text: "Sit tall and take one quiet superhero breath.",          emoji: "🦸💫"       },
+      ],
+      challenge: [
+        { text: "Name five things that are blue.",                        emoji: "🔵💙🫐🌊🫙" },
+        { text: "Count backward from 20.",                                emoji: "2️⃣0️⃣⬇️1️⃣" },
+        { text: "Think of three words that rhyme with cat.",              emoji: "🐱🎵✨"     },
+        { text: "Make a pattern with claps: clap, clap, snap.",          emoji: "👏👏🫰"     },
+        { text: "Name three animals that live in Texas.",                 emoji: "🦎🐄🦅"     },
+      ],
+      brainBreak: [
+        { text: "Look left, look right, then blink three times.",         emoji: "👀✨"       },
+        { text: "Touch your shoulders, knees, then head.",                emoji: "🙆‍♀️💃"    },
+        { text: "Pretend your hands are tiny fireworks.",                 emoji: "🎆🙌🎆"     },
+        { text: "Make your silliest thinking face.",                      emoji: "😜🤔"       },
+        { text: "Take a quiet 5-second reset.",                           emoji: "⏱️😌"       },
+      ],
+      joke: [
+        { text: "Why did the computer go to school? To improve its byte-sized learning.", emoji: "💻🎓" },
+        { text: "Why was the math book sad? It had too many problems.",                   emoji: "📖😢" },
+        { text: "What do you call a dinosaur that builds apps? A code-osaurus.",          emoji: "🦕💻" },
+        { text: "Why did the robot bring a pencil? It wanted to draw its own conclusions.", emoji: "🤖✏️" },
+        { text: "Why did the tablet need a nap? It had too many tabs open.",              emoji: "📱💤" },
+      ],
+      kindness: [
+        { text: "Tell someone, ‘Good job.’",                             emoji: "👏💛"       },
+        { text: "Give your teacher a quiet thumbs up.",                  emoji: "👍⭐"       },
+        { text: "Smile at someone near you.",                            emoji: "😊✨"       },
+        { text: "Say thank you to someone today.",                       emoji: "🙏💙"       },
+        { text: "Think of one way to help a friend.",                    emoji: "🤝💚"       },
+      ]
+    };
+
+    const categoryColors = {
+      bored:      "rgba(255, 140, 40,  0.10)",
+      tired:      "rgba(140, 100, 255, 0.10)",
+      challenge:  "rgba(255, 200, 0,   0.12)",
+      brainBreak: "rgba(0,   200, 200, 0.10)",
+      joke:       "rgba(255, 80,  150, 0.10)",
+      kindness:   "rgba(50,  200, 100, 0.10)",
+    };
+
+    const labels = {
+      bored: "bored",
+      tired: "tired",
+      challenge: "challenge",
+      brainBreak: "brain break",
+      joke: "joke",
+      kindness: "kindness mission"
+    };
+
+    const missionOutput = document.getElementById(“missionOutput”);
+    const missionEmoji = document.getElementById(“missionEmoji”);
+    const missionText = document.getElementById(“missionText”);
+    const missionSubtext = document.getElementById(“missionSubtext”);
+    const tryAgainButton = document.getElementById(“tryAgainButton”);
+    const codeButton = document.getElementById(“codeButton”);
+    const codePanel = document.getElementById(“codePanel”);
+    const codeText = document.getElementById(“codeText”);
+    const bugButton = document.getElementById(“bugButton”);
+    const fixButton = document.getElementById(“fixButton”);
+    const mysteryButton = document.getElementById(“mysteryButton”);
+    const appNameInput = document.getElementById(“appNameInput”);
+    const featureInput = document.getElementById(“featureInput”);
+    const addFeatureButton = document.getElementById(“addFeatureButton”);
+    const newFeatureArea = document.getElementById(“newFeatureArea”);
+
+    let lastCategory = null;
+
+    function randomItem(items) {
+      return items[Math.floor(Math.random() * items.length)];
+    }
+
+    function setEmoji(emoji, animClass = “”) {
+      missionEmoji.textContent = emoji;
+      missionEmoji.className = “mission-emoji”;
+      void missionEmoji.offsetWidth;
+      missionEmoji.classList.add(“pop”);
+      if (animClass) missionEmoji.classList.add(animClass);
+    }
+
+    function setOutput(text, subtext, state) {
+      missionText.textContent = text;
+      missionSubtext.textContent = subtext;
+      missionOutput.classList.remove(“bug”, “good”);
+      if (state) missionOutput.classList.add(state);
+    }
+
+    function updateCode(category, missionText) {
+      const label = labels[category] || “idea”;
+      codeText.textContent = `if (choice === “${label}”) {\n  show(“${missionText}”);\n}`;
+    }
+
+    function runCategory(category) {
+      lastCategory = category;
+      bugIsShowing = false;
+      fixButton.classList.add(“hidden”);
+      const mission = randomItem(missions[category]);
+      const animClass = { joke: “wiggle”, kindness: “pulse”, brainBreak: “bounce” }[category] || “”;
+      setEmoji(mission.emoji, animClass);
+      missionOutput.style.setProperty(“--cat-color”, categoryColors[category] || “”);
+      setOutput(mission.text, `Input: “${labels[category]}” → Code: pick a helpful response → Output: this mission.`, “good”);
+      updateCode(category, mission.text);
+    }
+
+    document.querySelectorAll(“[data-category]”).forEach((button) => {
+      button.addEventListener(“click”, () => runCategory(button.dataset.category));
+    });
+
+    tryAgainButton.addEventListener(“click”, () => {
+      runCategory(lastCategory || “challenge”);
+    });
+
+    codeButton.addEventListener(“click”, () => {
+      codePanel.classList.toggle(“show”);
+      codeButton.textContent = codePanel.classList.contains(“show”) ? “Hide code” : “Show code”;
+    });
+
+    bugButton.addEventListener(“click”, () => {
+      setEmoji(“🍌💥”);
+      missionOutput.style.removeProperty(“--cat-color”);
+      setOutput(“ERROR: Banana not found 🍌”, “A bug is when the app does something we did not want.”, “bug”);
+      fixButton.classList.remove(“hidden”);
+      codeText.textContent = `if (choice === “joke”) {\n  show(banana); // Oops. The app cannot find banana.\n}`;
+      codePanel.classList.add(“show”);
+      codeButton.textContent = “Hide code”;
+    });
+
+    fixButton.addEventListener(“click”, () => {
+      fixButton.classList.add(“hidden”);
+      setEmoji(“🎉✅”, “bounce”);
+      missionOutput.style.removeProperty(“--cat-color”);
+      setOutput(“Bug fixed: Why did the tablet need a nap? It had too many tabs open.”, “Engineers test, find bugs, fix them, and try again.”, “good”);
+      codeText.textContent = `if (choice === “joke”) {\n  show(“Why did the tablet need a nap? It had too many tabs open.”);\n}`;
+    });
+
+    mysteryButton.addEventListener(“click”, () => {
+      setEmoji(“🔮✨”);
+      missionOutput.style.removeProperty(“--cat-color”);
+      setOutput(“Mystery feature: Ask the class what button we should add next.”, “This is how app ideas start: someone notices a need or has a fun idea.”, “good”);
+      codeText.textContent = `newFeature = askTheClass();\nbuildButton(newFeature);\ntestItTogether();`;
+    });
+
+    function cleanFeatureName(value) {
+      const cleaned = value.trim().replace(/\s+/g, " ").slice(0, 40);
+      return cleaned || "mystery helper";
+    }
+
+    function titleCase(value) {
+      return value.replace(/\w\S*/g, (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+    }
+
+    appNameInput.addEventListener("input", () => {
+      const cleaned = cleanFeatureName(appNameInput.value) || "Super Helper App";
+      document.getElementById("app-title").textContent = cleaned;
+    });
+
+    addFeatureButton.addEventListener("click", () => {
+      const appName = cleanFeatureName(appNameInput.value || "Super Helper App");
+      const feature = cleanFeatureName(featureInput.value);
+      const button = document.createElement("button");
+      button.className = "choice-button";
+      button.type = "button";
+
+      const icon = document.createElement("span");
+      icon.className = "icon";
+      icon.textContent = "✨";
+
+      const label = document.createElement("span");
+      label.textContent = titleCase(feature);
+
+      button.append(icon, label);
+      button.addEventListener("click", () => {
+        setEmoji("✨⚡");
+        missionOutput.style.removeProperty("--cat-color");
+        setOutput(`The ${titleCase(feature)} works!`, `In ${appName}, this new feature started as an idea from the class.`, "good");
+        codeText.textContent = `button("${feature}").whenClicked(() => {\n  show("The ${feature} works!");\n});`;
+      });
+
+      newFeatureArea.append(button);
+      featureInput.value = "";
+      setEmoji("✨⚡");
+      missionOutput.style.removeProperty("--cat-color");
+      setOutput(`Feature added: ${titleCase(feature)}`, "Now test it by pressing the new button.", "good");
+    });
+
+    const presentationModeButton = document.getElementById("presentationModeButton");
+    const featureBuilderSection = document.querySelector(".feature-builder");
+    const footerNotes = document.querySelector(".footer-notes");
+    let presentationMode = false;
+
+    presentationModeButton.addEventListener("click", () => {
+      presentationMode = !presentationMode;
+      featureBuilderSection.classList.toggle("hidden", presentationMode);
+      footerNotes.classList.toggle("hidden", presentationMode);
+      presentationModeButton.textContent = presentationMode ? "Exit Presentation Mode" : "Presentation Mode";
+    });
+  </script>
+</body>
+</html>

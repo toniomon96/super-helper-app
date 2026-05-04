@@ -1,0 +1,7 @@
+{
+  "outputDirectory": ".",
+  "buildCommand": null,
+  "devCommand": null,
+  "framework": null,
+  "cleanUrls": true
+}

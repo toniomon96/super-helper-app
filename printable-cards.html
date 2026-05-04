@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Super Helper App — Printable Cards</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: white;
+      color: #111;
+    }
+
+    .card {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 80px;
+      border: 16px solid #111;
+      break-after: page;
+      page-break-after: always;
+      text-align: center;
+      gap: 28px;
+    }
+
+    .card:last-child {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    .card-icon {
+      font-size: 100px;
+      line-height: 1;
+    }
+
+    .card-label {
+      font-size: 110px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .card-desc {
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.3;
+      max-width: 700px;
+      color: #333;
+    }
+
+    .card-example {
+      font-size: 26px;
+      color: #555;
+      font-style: italic;
+      line-height: 1.4;
+      max-width: 700px;
+    }
+
+    .card-divider {
+      width: 120px;
+      height: 8px;
+      background: #111;
+      border-radius: 4px;
+    }
+
+    /* Activity sheet */
+    .activity-sheet {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 60px 80px;
+      border: 16px solid #111;
+      gap: 36px;
+    }
+
+    .activity-title {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      text-align: center;
+    }
+
+    .activity-subtitle {
+      font-size: 28px;
+      text-align: center;
+      color: #444;
+    }
+
+    .boxes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      flex: 1;
+    }
+
+    .box {
+      border: 5px solid #111;
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .box-prompt {
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .box-lines {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 18px;
+    }
+
+    .box-line {
+      border-bottom: 3px solid #bbb;
+      height: 0;
+    }
+
+    @media screen {
+      body {
+        background: #f0f0f0;
+        padding: 20px;
+      }
+
+      .card, .activity-sheet {
+        max-width: 900px;
+        margin: 0 auto 40px;
+        background: white;
+        border-radius: 12px;
+        min-height: 600px;
+        height: auto;
+      }
+
+      .print-hint {
+        display: block;
+        text-align: center;
+        font-size: 18px;
+        margin-bottom: 24px;
+        padding: 16px;
+        background: white;
+        border-radius: 12px;
+        max-width: 900px;
+        margin: 0 auto 20px;
+      }
+    }
+
+    @media print {
+      .print-hint { display: none; }
+
+      body { background: white; padding: 0; }
+
+      .card, .activity-sheet {
+        border-radius: 0;
+        max-width: none;
+        margin: 0;
+        border: 12px solid #111;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <p class="print-hint">Print this page with "Print background graphics" off. Each card prints on its own page. Use File → Print or Ctrl+P / Cmd+P.</p>
+
+  <!-- CARD 1: INPUT -->
+  <div class="card">
+    <div class="card-icon">👋</div>
+    <div class="card-label">Input</div>
+    <div class="card-divider"></div>
+    <div class="card-desc">What we tell the app.</div>
+    <div class="card-example">"I'm bored." / "Tell me a joke." / "I need a brain break."</div>
+  </div>
+
+  <!-- CARD 2: CODE -->
+  <div class="card">
+    <div class="card-icon">📋</div>
+    <div class="card-label">Code</div>
+    <div class="card-divider"></div>
+    <div class="card-desc">The app's instructions.</div>
+    <div class="card-example">If someone is bored → give them a creative mission.</div>
+  </div>
+
+  <!-- CARD 3: OUTPUT -->
+  <div class="card">
+    <div class="card-icon">✨</div>
+    <div class="card-label">Output</div>
+    <div class="card-divider"></div>
+    <div class="card-desc">What the app gives back.</div>
+    <div class="card-example">"Draw a robot with cowboy boots." / "Why did the tablet need a nap?"</div>
+  </div>
+
+  <!-- CARD 4: BUG -->
+  <div class="card">
+    <div class="card-icon">🐛</div>
+    <div class="card-label">Bug</div>
+    <div class="card-divider"></div>
+    <div class="card-desc">When the app does something we did not want.</div>
+    <div class="card-example">ERROR: Banana not found 🍌</div>
+  </div>
+
+  <!-- CARD 5: FIX -->
+  <div class="card">
+    <div class="card-icon">🔧</div>
+    <div class="card-label">Fix</div>
+    <div class="card-divider"></div>
+    <div class="card-desc">Change the instructions and try again.</div>
+    <div class="card-example">Engineers test, find bugs, fix them, and try again.</div>
+  </div>
+
+  <!-- ACTIVITY SHEET: Design Your Own App -->
+  <div class="activity-sheet">
+    <div class="activity-title">Design Your Own App</div>
+    <div class="activity-subtitle">Draw or write your answers in each box.</div>
+
+    <div class="boxes">
+      <div class="box">
+        <div class="box-prompt">My app is called…</div>
+        <div class="box-lines">
+          <div class="box-line"></div>
+          <div class="box-line"></div>
+          <div class="box-line"></div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-prompt">My app helps…</div>
+        <div class="box-lines">
+          <div class="box-line"></div>
+          <div class="box-line"></div>
+          <div class="box-line"></div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-prompt">My app has this button…</div>
+        <div class="box-lines">
+          <div class="box-line"></div>
+          <div class="box-line"></div>
+          <div class="box-line"></div>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-prompt">When you press it…</div>
+        <div class="box-lines">
+          <div class="box-line"></div>
+          <div class="box-line"></div>
+          <div class="box-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
