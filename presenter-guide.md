@@ -6,7 +6,7 @@
 ## Live URL
 
 Share this with the teacher or post it in the classroom after Career Day:
-**https://super-helper-app.vercel.app**
+**https://southridgeelementarycareerday.com**
 
 The site works on any phone, tablet, or computer — no app install needed.
 
@@ -26,6 +26,35 @@ The site works on any phone, tablet, or computer — no app install needed.
 > "Apps are not magic. They are ideas plus instructions."
 
 Everything you say and do in the session should come back to this line. Repeat it at least twice.
+
+---
+
+## Personal Intro Script (3–4 min — use before every session)
+
+*Covers the three things the school asks every presenter to address: job overview, typical day, and skills/education.*
+
+> "Hi everyone — my name is Toni, and I work at Microsoft as an AI Cloud Solutions Engineer.
+> That's a mouthful, so here's the simple version: **I help companies use artificial intelligence and cloud technology to solve real problems.**"
+
+*(~1 min)* **Your job and industry:**
+> "Microsoft makes software and tools used by billions of people — Windows, Xbox, Teams, and a lot more. My team specifically works on AI — that's Artificial Intelligence — helping businesses figure out how to use it. Think of me as someone who takes a big, complicated technology and helps people actually use it in their everyday work."
+
+*(~1.5 min)* **A typical day:**
+> "On a typical day I might:
+> — Jump on a video call with a customer who has a problem they need to solve
+> — Design a solution using AI tools — basically planning out how the app or system will work
+> — Build a demo to show them what it will look like — kind of like what I'm going to show you today
+> — And yes, fix bugs. That never goes away, no matter how good you get.
+> Every day is different, which is honestly one of my favorite things about it."
+
+*(~1 min)* **Skills and education:**
+> "I studied Information Technology in college — that's learning how computers, networks, and software all work together. But here's what I really needed:
+> Curiosity — I was always the kid asking 'how does that work?'
+> Patience — because when something breaks, you have to stay calm and figure it out.
+> And the ability to explain hard things simply — because my job isn't just building things, it's helping people understand them. Which, by the way, is exactly what we're going to do today."
+
+*(~30 sec)* **Transition into the demo:**
+> "I actually built an app to show you how this all works. Input. Code. Output. Let's go."
 
 ---
 
@@ -49,6 +78,8 @@ Everything you say and do in the session should come back to this line. Repeat i
 
 **Goal:** Leave kids with one idea — Input → Code → Output.
 
+*Note: This version skips the Personal Intro Script. The three topics the school asks for (job overview, typical day, skills/education) are not covered — use this only as an emergency fallback if time runs short.*
+
 1. Ask: "Who here uses apps?"
 2. Say the core message: "Apps are not magic. They are ideas plus instructions."
 3. Show the app on screen.
@@ -65,9 +96,9 @@ Everything you say and do in the session should come back to this line. Repeat i
 
 **Goal:** Show the full demo loop and let kids participate in adding a feature.
 
-1. *(2 min)* Ask students what apps or games they use. Let 2–3 students share.
-2. *(1 min)* Explain your job in one sentence: "I build technology that helps people solve problems."
-3. *(1 min)* Say the core message. Show the app.
+1. *(1 min)* Ask students what apps or games they use. Let 2–3 students share.
+2. *(3–4 min)* Run the **Personal Intro Script** above — covers your job, your typical day, and skills/education (required by the school).
+3. *(30 sec)* Say the core message and open the app on screen.
 4. *(3 min)* Let the class vote on buttons. Click 2–3 of the six choices. Read outputs out loud.
 5. *(2 min)* Click **Show code**. Walk through the snippet: "See this? It says: if the input is 'bored,' show a creative mission. That's it. That's the whole idea."
 6. *(2 min)* Click **Make a bug**. Show the error. Ask: "What went wrong?" Let a student guess.
