@@ -516,7 +516,7 @@
 
       <aside class="quick-card" aria-label="Presenter setup notes">
         <div class="safe-note">Works offline. No student names, photos, or data are saved.</div>
-        <p><strong>Presenter line:</strong> “Apps are not magic. They are ideas plus instructions.”</p>
+        <p><strong>Presenter line:</strong> "Apps are not magic. They are ideas plus instructions."</p>
       </aside>
     </header>
 
@@ -595,7 +595,7 @@
 
     <section class="footer-notes">
       <h3>Presenter reminder</h3>
-      <p>Say: “At my job, the apps are bigger, but the idea is the same: someone has a problem, and we build technology to help.”</p>
+      <p>Say: "At my job, the apps are bigger, but the idea is the same: someone has a problem, and we build technology to help."</p>
     </section>
   </main>
 
@@ -663,21 +663,21 @@
       kindness: "kindness mission"
     };
 
-    const missionOutput = document.getElementById(“missionOutput”);
-    const missionEmoji = document.getElementById(“missionEmoji”);
-    const missionText = document.getElementById(“missionText”);
-    const missionSubtext = document.getElementById(“missionSubtext”);
-    const tryAgainButton = document.getElementById(“tryAgainButton”);
-    const codeButton = document.getElementById(“codeButton”);
-    const codePanel = document.getElementById(“codePanel”);
-    const codeText = document.getElementById(“codeText”);
-    const bugButton = document.getElementById(“bugButton”);
-    const fixButton = document.getElementById(“fixButton”);
-    const mysteryButton = document.getElementById(“mysteryButton”);
-    const appNameInput = document.getElementById(“appNameInput”);
-    const featureInput = document.getElementById(“featureInput”);
-    const addFeatureButton = document.getElementById(“addFeatureButton”);
-    const newFeatureArea = document.getElementById(“newFeatureArea”);
+    const missionOutput = document.getElementById("missionOutput");
+    const missionEmoji = document.getElementById("missionEmoji");
+    const missionText = document.getElementById("missionText");
+    const missionSubtext = document.getElementById("missionSubtext");
+    const tryAgainButton = document.getElementById("tryAgainButton");
+    const codeButton = document.getElementById("codeButton");
+    const codePanel = document.getElementById("codePanel");
+    const codeText = document.getElementById("codeText");
+    const bugButton = document.getElementById("bugButton");
+    const fixButton = document.getElementById("fixButton");
+    const mysteryButton = document.getElementById("mysteryButton");
+    const appNameInput = document.getElementById("appNameInput");
+    const featureInput = document.getElementById("featureInput");
+    const addFeatureButton = document.getElementById("addFeatureButton");
+    const newFeatureArea = document.getElementById("newFeatureArea");
 
     let lastCategory = null;
 
@@ -685,73 +685,72 @@
       return items[Math.floor(Math.random() * items.length)];
     }
 
-    function setEmoji(emoji, animClass = “”) {
+    function setEmoji(emoji, animClass = "") {
       missionEmoji.textContent = emoji;
-      missionEmoji.className = “mission-emoji”;
+      missionEmoji.className = "mission-emoji";
       void missionEmoji.offsetWidth;
-      missionEmoji.classList.add(“pop”);
+      missionEmoji.classList.add("pop");
       if (animClass) missionEmoji.classList.add(animClass);
     }
 
     function setOutput(text, subtext, state) {
       missionText.textContent = text;
       missionSubtext.textContent = subtext;
-      missionOutput.classList.remove(“bug”, “good”);
+      missionOutput.classList.remove("bug", "good");
       if (state) missionOutput.classList.add(state);
     }
 
     function updateCode(category, missionText) {
-      const label = labels[category] || “idea”;
-      codeText.textContent = `if (choice === “${label}”) {\n  show(“${missionText}”);\n}`;
+      const label = labels[category] || "idea";
+      codeText.textContent = `if (choice === "${label}") {\n  show("${missionText}");\n}`;
     }
 
     function runCategory(category) {
       lastCategory = category;
-      bugIsShowing = false;
-      fixButton.classList.add(“hidden”);
+      fixButton.classList.add("hidden");
       const mission = randomItem(missions[category]);
-      const animClass = { joke: “wiggle”, kindness: “pulse”, brainBreak: “bounce” }[category] || “”;
+      const animClass = { joke: "wiggle", kindness: "pulse", brainBreak: "bounce" }[category] || "";
       setEmoji(mission.emoji, animClass);
-      missionOutput.style.setProperty(“--cat-color”, categoryColors[category] || “”);
-      setOutput(mission.text, `Input: “${labels[category]}” → Code: pick a helpful response → Output: this mission.`, “good”);
+      missionOutput.style.setProperty("--cat-color", categoryColors[category] || "");
+      setOutput(mission.text, `Input: "${labels[category]}" → Code: pick a helpful response → Output: this mission.`, "good");
       updateCode(category, mission.text);
     }
 
-    document.querySelectorAll(“[data-category]”).forEach((button) => {
-      button.addEventListener(“click”, () => runCategory(button.dataset.category));
+    document.querySelectorAll("[data-category]").forEach((button) => {
+      button.addEventListener("click", () => runCategory(button.dataset.category));
     });
 
-    tryAgainButton.addEventListener(“click”, () => {
-      runCategory(lastCategory || “challenge”);
+    tryAgainButton.addEventListener("click", () => {
+      runCategory(lastCategory || "challenge");
     });
 
-    codeButton.addEventListener(“click”, () => {
-      codePanel.classList.toggle(“show”);
-      codeButton.textContent = codePanel.classList.contains(“show”) ? “Hide code” : “Show code”;
+    codeButton.addEventListener("click", () => {
+      codePanel.classList.toggle("show");
+      codeButton.textContent = codePanel.classList.contains("show") ? "Hide code" : "Show code";
     });
 
-    bugButton.addEventListener(“click”, () => {
-      setEmoji(“🍌💥”);
-      missionOutput.style.removeProperty(“--cat-color”);
-      setOutput(“ERROR: Banana not found 🍌”, “A bug is when the app does something we did not want.”, “bug”);
-      fixButton.classList.remove(“hidden”);
-      codeText.textContent = `if (choice === “joke”) {\n  show(banana); // Oops. The app cannot find banana.\n}`;
-      codePanel.classList.add(“show”);
-      codeButton.textContent = “Hide code”;
+    bugButton.addEventListener("click", () => {
+      setEmoji("🍌💥");
+      missionOutput.style.removeProperty("--cat-color");
+      setOutput("ERROR: Banana not found 🍌", "A bug is when the app does something we did not want.", "bug");
+      fixButton.classList.remove("hidden");
+      codeText.textContent = `if (choice === "joke") {\n  show(banana); // Oops. The app cannot find banana.\n}`;
+      codePanel.classList.add("show");
+      codeButton.textContent = "Hide code";
     });
 
-    fixButton.addEventListener(“click”, () => {
-      fixButton.classList.add(“hidden”);
-      setEmoji(“🎉✅”, “bounce”);
-      missionOutput.style.removeProperty(“--cat-color”);
-      setOutput(“Bug fixed: Why did the tablet need a nap? It had too many tabs open.”, “Engineers test, find bugs, fix them, and try again.”, “good”);
-      codeText.textContent = `if (choice === “joke”) {\n  show(“Why did the tablet need a nap? It had too many tabs open.”);\n}`;
+    fixButton.addEventListener("click", () => {
+      fixButton.classList.add("hidden");
+      setEmoji("🎉✅", "bounce");
+      missionOutput.style.removeProperty("--cat-color");
+      setOutput("Bug fixed: Why did the tablet need a nap? It had too many tabs open.", "Engineers test, find bugs, fix them, and try again.", "good");
+      codeText.textContent = `if (choice === "joke") {\n  show("Why did the tablet need a nap? It had too many tabs open.");\n}`;
     });
 
-    mysteryButton.addEventListener(“click”, () => {
-      setEmoji(“🔮✨”);
-      missionOutput.style.removeProperty(“--cat-color”);
-      setOutput(“Mystery feature: Ask the class what button we should add next.”, “This is how app ideas start: someone notices a need or has a fun idea.”, “good”);
+    mysteryButton.addEventListener("click", () => {
+      setEmoji("🔮✨");
+      missionOutput.style.removeProperty("--cat-color");
+      setOutput("Mystery feature: Ask the class what button we should add next.", "This is how app ideas start: someone notices a need or has a fun idea.", "good");
       codeText.textContent = `newFeature = askTheClass();\nbuildButton(newFeature);\ntestItTogether();`;
     });
 
